@@ -1,0 +1,112 @@
+FastAdmin项目目录
+├── addons                  //插件存放目录
+├── application           //应用目录
+│   ├── admin             //后台管理应用模块
+│   ├── api               //API应用模块
+│   ├── common             //通用应用模块
+│   ├── extra             //扩展配置目录
+│   ├── index             //前台应用模块
+│   ├── build.php
+│   ├── command.php        //命令行配置
+│   ├── common.php         //通用辅助函数
+│   ├── config.php         //基础配置
+│   ├── database.php       //数据库配置
+│   ├── route.php          //路由配置
+│   ├── tags.php           //行为配置
+├── extend
+│   └── fast               //FastAdmin扩展辅助类目录
+├── public
+│   ├── assets
+│   │   ├── build            //打包JS、CSS的资源目录
+│   │   ├── css                //CSS样式目录
+│   │   ├── fonts            //字体目录
+│   │   ├── img
+│   │   ├── js
+│   │   │   ├── backend
+│   │   │   └── frontend     //后台功能模块JS文件存放目录
+│   │   ├── libs            //Bower资源包位置
+│   │   └── less            //Less资源目录
+│   └── uploads                //上传文件目录
+│   ├── index.php            //应用入口主文件
+│   ├── install.php          //FastAdmin安装引导
+│   ├── admin.php            //后台入口文件,强烈建议修改
+│   ├── robots.txt
+│   └── router.php
+├── runtime                    //缓存目录    
+├── thinkphp                //ThinkPHP5框架核心目录
+├── vendor                    //Compposer资源包位置
+├── .bowerrc                //Bower目录配置文件
+├── LICENSE
+├── README.md
+├── bower.json                //Bower前端包配置
+├── build.php                    
+├── composer.json            //Composer包配置
+└── think
+
+├── application
+│   └── admin
+│       ├── controller
+│       │   └── Test.php        //控制器类
+│       ├── lang
+│       │   ├── zh-cn            
+│       │   │   └── test.php    //功能语言包,按需加载
+│       │   └── zh-cn.php        //后台语言包,默认加载
+│       ├── model
+│       │   └── Test.php        //模型类
+│       ├── validate
+│       │   └── Test.php        //验证器类
+│       └── view
+│           └── test            
+│               ├── index.html   //列表视图
+│               ├── add.html     //添加视图
+│               └── edit.html    //编辑视图
+└── public
+    └── assets
+        └── js
+            └── backend
+                └── test.js      //功能模块JS文件
+public
+├── assets
+│   ├── addons
+│   ├── css
+│   ├── fonts
+│   ├── img
+│   ├── js
+│   │   ├── backend
+│   │   ├── frontend
+│   ├── less
+│   └── libs
+assets主要存在我们框架所需要使用到的静态资源
+
+assets/js/backend主要存在后台控制器所对应的JS模块
+
+assets/libs主要存在第三方的插件
+
+assets/less主要存在Less文件
+
+assets/img主要存在图片相关文件
+
+assets/css主要存在CSS样式相关文件
+
+assets/addons主要存放插件的相关静态资源
+1.在FastAdmin中每一个功能模块至少对应一个功能模块JS文件，也就是说每一个控制器都对应一个同名的JS文件，其次每一个控制器的方法对应JS文件中同名的方法。比如我们的控制器是application/admin/controller/Article.php，则我们JS中对应的JS模块是public/assets/js/backend/article.js
+2.多语言：在FastAdmin中可以在任何位置(控制器、视图、JS)使用__('语言标识');调用语言包，如果语言标识不存在，则直接输出该语言标识
+	__('This is %s,base on %s', 'FastAdmin', 'ThinkPHP5');   返回 This is FastAdmin,base on ThinkPHP5
+  如果需要在HTML视图文件中使用多语言，则需要使用{:__('Home')}的方式调用，而在PHP和JS中均可以使用__('Home')的方式发起调用。
+  如果我们调用的多语言不存在，则会原样输出字符。例如我们调用__('Undefined')，则会原样输出Undefined字符。
+3.数据库：使用php think crud -t 表名生成CRUD时会自动生成对应的HTML元素和组件
+	php think menu -c all-controller一键生成后台管理的菜单
+	注释支持@icon/@remark/@internal这三个属性，分别表示图标/备注/忽略，如果是protected或private的方法在后期一键生成时会自动忽略。
+4. public function index(){}        查看
+ public function add($ids = ""){}   添加
+ public function edit($ids = ""){}  编辑
+ public function del($ids = ""){}   删除
+ public function multi($ids = ""){} 批量更新
+ public function recyclebin(){}     回收站
+ public function destroy($ids = ""){}真实删除
+ public function restore($ids = ""){}还原
+ protected function import(){}       导入
+ public function selectpage()       下拉筛选
+    {
+        return parent::selectpage();
+    }
